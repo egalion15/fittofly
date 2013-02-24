@@ -131,7 +131,11 @@ echo $one['Фон слайда'];
     <div class="rblock">
         <h1 class="buy"><a href="http://fittofly.com.ua/otkryt-svoj-klub">Открыть свой клуб</a></h1>
     </div>
-	
+
+<div class="rblock">
+        <h1 class="buy"><a href="http://fittofly.com.ua/otkryt-svoj-klub">Открыть свой клуб</a></h1>
+    </div>	
+
 	<div class="rblock">
 		<div class="news_teaser">
 			<div class="vert_prev"></div>
