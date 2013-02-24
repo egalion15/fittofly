@@ -17,13 +17,13 @@ define('WP_CACHE', true);
 
 // ** Параметры MySQL: Эту информацию можно получить у вашего хостинг-провайдера ** //
 /** Имя базы данных для WordPress */
-define('DB_NAME', 'Fit_tu');
+define('DB_NAME', 'fit');
 
 /** Имя пользователя MySQL */
-define('DB_USER', 'mysql');
+define('DB_USER', 'root');
 
 /** Пароль к базе данных MySQL */
-define('DB_PASSWORD', 'mysql');
+define('DB_PASSWORD', 'root');
 
 
 /** Имя сервера MySQL */
