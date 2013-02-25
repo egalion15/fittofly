@@ -3,15 +3,17 @@
  * Plugin Name: Yandex Maps for WordPress
  * Plugin URI: http://blog.meelk.com.ua/2009/02/10/plugin-yandekskarty-dlya-wordpress/
  * Description: This simple plugin allows you to insert <a href="http://maps.yandex.ru">Yandex Maps</a> into your blog posts, including large cities. Based on <a href="http://xavisys.com/google-maps-for-wordpress/">Google Maps for Wordpress Plugin</a>. Requires PHP5.
- * Version: 1.3.1
- * Author: Mee
+ * Version: 1.4.1
+ * Author: Mykhailo Glubokyi
  * Author URI: http://meelk.com.ua/
  */
 
 /**
- * Changelog:
- * 28/12/2010: 1.3.1
- * 	-  Fixed lots of bugs
+ * Changelog
+ * 19/02/2012: 1.4.1
+ * 	-  Baloon fixes / Multiple map fixes
+ * 02/02/2012: 1.4.0
+ * 	-  Fixed bug with extra padding\margins on some themes
  * 01/05/2009: 1.2.1
  * 	-  Fixed bug with edit filter
  * 28/04/2009: 1.2
@@ -31,7 +33,7 @@
  */
  
 
-/*  Copyright 2009  Mee  (email : contacts@meelk.com.ua)
+/*  Created by Mykhailo Glubokyi  (email : contacts@meelk.com.ua)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -193,6 +195,7 @@ class wpYandexMaps
 
 			//wp_enqueue_script('wpYandexMaps');
 			wp_enqueue_script('yandexMaps');
+			echo '<link rel="stylesheet" href="'.site_url("/wp-content/plugins/yandex-maps-for-wordpress/yandex.css",'http').'" type="text/css" media="screen" title="Yandex Maps CSS" charset="utf-8"/>';
 		}
 	}
 
@@ -357,7 +360,7 @@ class wpYandexMaps
 		if($mapInfo->typecontrol==1) {
 				$buttonsOverlay = "
 							var typeControl = new YMaps.TypeControl();
-							map_{$this->mapNum}.addControl(typeControl);	        
+							map.addControl(typeControl);	        
 				";		
 		} else {
 				$buttonsOverlay  =  "";	
@@ -366,10 +369,10 @@ class wpYandexMaps
 		if($mapInfo->zoompancontrol==1) {
 			$zoomPan = "
 						
-						map_{$this->mapNum}.addControl(new YMaps.ToolBar());
-						map_{$this->mapNum}.addControl(new YMaps.Zoom());
-						map_{$this->mapNum}.addControl(new YMaps.MiniMap());
-						map_{$this->mapNum}.addControl(new YMaps.ScaleLine());
+						map.addControl(new YMaps.ToolBar());
+						map.addControl(new YMaps.Zoom());
+						map.addControl(new YMaps.MiniMap());
+						map.addControl(new YMaps.ScaleLine());
 			";
 		} else {
 			$zoomPan = "";
@@ -381,19 +384,22 @@ class wpYandexMaps
 <script type="text/javascript">
 //<![CDATA[ 
 			
-			var map_{$this->mapNum} = new YMaps.Map(document.getElementById("map_{$this->mapNum}"));
+			var map{$this->mapNum} = new YMaps.Map(document.getElementById("map_{$this->mapNum}"));
 
 						
-				var geocoder = new YMaps.Geocoder("{$mapInfo->address}", {results: 1, boundedBy: map_{$this->mapNum}.getBounds()});
+				var geocoder = new YMaps.Geocoder("{$mapInfo->address}", {results: 1, boundedBy: map{$this->mapNum}.getBounds()});
 	 
 				YMaps.Events.observe(geocoder, geocoder.Events.Load, function () {
 					if (this.length()) {
 						geoResult = this.get(0);
-						geoResult.text="<h3>{$mapInfo->name}</h3><br/>{$mapInfo->description}";
+						map{$this->mapNum}.setCenter(geoResult.getGeoPoint(), 13);
+						map{$this->mapNum}.openBalloon(geoResult.getGeoPoint(), "<div style='padding:10px'><h3>{$mapInfo->name}</h3><p>{$mapInfo->description}</p></div>");
+						
+						//geoResult.text=
 
-						map_{$this->mapNum}.addOverlay(geoResult);
-						map_{$this->mapNum}.setBounds(geoResult.getBounds());	                    
-						geoResult.openBalloon();  
+						//map.addOverlay(geoResult);
+						//map.setBounds(geoResult.getBounds());	                    
+						//geoResult.openBalloon();  
 
 												
 

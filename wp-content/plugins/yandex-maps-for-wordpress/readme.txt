@@ -2,8 +2,8 @@
 Contributors: mee.six
 Tags: maps, yandex, yandex maps, shortcodes
 Requires at least: 2.5.1
-Tested up to: 3.0.3
-Stable tag: 1.3.1
+Tested up to: 3.3.1
+Stable tag: 1.4.1
 
 This simple plugin allows you to insert <a href="http://maps.yandex.ru">Yandex Maps</a> into your blog posts, including large cities of Eastern Europe and Russia.
 == Description ==
@@ -14,6 +14,8 @@ The maps can be configured to show or hide the zoom/pan controls, show/hide map 
 (street view, satellite, etc).  PHP5 Required. Has Wordpress MU support.
 
 = Change log =
+* 1.4.1 Baloon fixes / Multiple map fixes
+* 1.4.0 CSS Bugfixes
 * 1.3.1 Bugfixes
 * 1.3.0 Bugfixes
 * 1.2.1 Fixed bug with post edit filter
